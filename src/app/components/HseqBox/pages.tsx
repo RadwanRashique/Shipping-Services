@@ -7,6 +7,29 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { createTheme } from '@mui/material/styles';
+
+
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      light: '#81d4fa',
+      main: '#3f50b5',
+      
+    },
+    warning: {
+      light: '#ffcc80',
+      main: '#3f50b5'
+    },
+
+    success:{
+      light:'#ef9a9a',
+      main:'#f44336'
+    }
+  },
+});
+
 import React from 'react'
 
 let Data = [
@@ -25,34 +48,35 @@ let Data = [
 
 
 function HseqBox() {
+ 
   return (
     <Box>
 
-<Stack direction='row' alignItems='self-start' justifyContent='start' bgcolor='#f0f0f0' sx={{paddingLeft:'30px', padding:'10px'}}>
+<Stack  alignItems='self-start' justifyContent='space-between' bgcolor='#f0f0f0' sx={{paddingLeft:'30px', padding:'10px'}}>
 
 <Stack  sx={{width:'25%' }}  direction='row' justifyContent='space-between'>
 <Stack color="#006400" bgcolor='#d0d9d3' width='50px'  textAlign='center'>
         <Typography variant='h6'>22</Typography>
-        <Typography  variant='subtitle1'>All</Typography>
+        <Typography  variant='subtitle2'>All</Typography>
     </Stack>
     <Divider orientation='vertical' variant='middle' flexItem/>
-    <Stack direction='column'  >
+    <Stack direction='column' paddingLeft='20px'  >
         
         <Typography variant='h6' color='#fa8b14'>21</Typography>
-    <Typography  variant='subtitle1'>Missing</Typography>
+    <Typography  variant='subtitle2'>Missing</Typography>
     </Stack>
-    <Stack><Typography variant='h6' color='primary'>1</Typography>
+    <Stack paddingLeft='20px' ><Typography variant='h6' color='primary'  >1</Typography>
     
-    <Typography  variant='subtitle1'>Pending Approval</Typography>
+    <Typography  variant='subtitle2' >Pending Approval</Typography>
     </Stack>
-    <Stack><Typography variant='h6' color='error'>0</Typography>
-    <Typography  variant='subtitle1' >Expired</Typography>
+    <Stack  paddingLeft='20px'><Typography variant='h6' color='error' >0</Typography>
+    <Typography  variant='subtitle2' >Expired</Typography>
     </Stack>
 </Stack>
 
 </Stack>
 
-<Stack width='100%' marginTop='10px' direction='row' justifyContent='space-between' alignItems='center'>
+<Stack spacing={2} width='100%' marginTop='10px' direction={{xs:'column-reverse',sm:'row',}} justifyContent='space-between' alignItems={{sm:'flex-start',md:'center'}}>
 
     <Stack width="10%" direction='row'>
     <IconButton disableRipple ><UnfoldMoreIcon  /></IconButton>
@@ -87,13 +111,13 @@ function HseqBox() {
         <TableCell><Typography variant='body2'>Expire Date</Typography>
         <Typography variant='subtitle2' style={{fontWeight:'bold'}}>{data.ExpireDate}</Typography></TableCell>
         <TableCell  color='red'>{data.Status === 'Pending Approval' && (
-                    <Chip color="primary" icon={<FiberManualRecordIcon />} label={data.Status} />
+                    <Chip   sx={{ backgroundColor: theme.palette.primary.light}}  icon={<FiberManualRecordIcon />} label={data.Status} />
                   )}
                   {data.Status === 'Expired' && (
-                    <Chip color="error" icon={<ErrorOutlineIcon />} label={data.Status} />
+                    <Chip  sx={{ backgroundColor: theme.palette.success.light}}  icon={<ErrorOutlineIcon />} label={data.Status} />
                   )}
                   {data.Status === 'Expiring soon' &&  (
-                    <Chip color="error" icon={<AccessTimeIcon />} label={data.Status} />
+                    <Chip sx={{ backgroundColor: theme.palette.success.light}} icon={<AccessTimeIcon />} label={data.Status} />
                   )}</TableCell>
         <TableCell> 
 <Stack alignItems='flex-end'>

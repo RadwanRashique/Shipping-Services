@@ -4,6 +4,8 @@ import {Box, Typography, Stack,Alert, Paper ,Tab} from '@mui/material'
 import {TabContext,TabList,TabPanel} from '@mui/lab'
 import {styled} from '@mui/material/styles'
 import HseqBox from "../components/HseqBox/pages";
+import SaveAlert from '../components/saveAlert/page'
+
 const DemoPaper = styled(Paper)(({ theme }) => ({
     display: 'flex',
     flexWrap: 'wrap',
@@ -15,36 +17,41 @@ const DemoPaper = styled(Paper)(({ theme }) => ({
 
 }))
 function SupplierDetails(){
+   
 
     return(
         <>
-        <Box  width='100%' height='100vh' >
-<Stack  width='100%' height='60px'    direction="row"
-  justifyContent="space-between"
-  alignItems="center"
-  spacing={2}
-  paddingLeft='20px'
+        <Box  width='100%' height='10%'    >
+      
+      
+        
+<Stack  width='100%' height={{sm:"160px",md:'80px'}}  paddingBottom='20px'  direction={{ sm:'column', md:'row' } }
+  justifyContent= {{md:"space-between", xs:'center'}} alignItems={{md:"space-between", xs:'stretch'}}
  
+  spacing={4}
+  paddingLeft='20px'
+  paddingTop='5px'
+  
  >
-    <Box >
+      
+    <Box width='50%'  >
 
-    <Typography variant='h6' color="#006400" sx={{fontWeight:'bold'}}>Shipping Services Argentina S.A.</Typography>
-    </Box>
-<Box  width='25%' paddingRight='200px' >
+    <Typography variant='h6'color="#006400" sx={{fontWeight:'bold'}}>Shipping Services Argentina S.A.</Typography>
+    </Box  >
+<Stack sx={{ height: { sm: '30%', md: '60%' }}} width='40%'    direction='row' justifyContent='center'     >
 
-    <Alert severity='info' sx={{fontWeight:'bold'}}>
+    <Alert severity='info' sx={{fontWeight:'bold', fontSize:{ xs: '10px', md: '13px',  width: '80%' }}} >
 Bellow are listed certificates and evidence
 
     </Alert>
-</Box>
-
+</Stack>
 
 </Stack >
 
 
 <DemoPaper  variant="elevation">
 <TabContext value='1'>
-    <Box>
+    <Box   width='auto' height='auto'>
       <TabList  textColor='secondary' indicatorColor='secondary' >
         <Tab  label='HSEQ' value='1' />
         <Tab  label='PROCUREMENT' value='2' />
