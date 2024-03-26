@@ -1,4 +1,6 @@
-import { Box, Stack, Typography,IconButton, TextField,Table,TableBody,TableCell,TableContainer,TableRow, Chip, Button, Divider } from '@mui/material'
+
+
+import { Box, Stack, Typography,IconButton, TextField,Table,TableBody,TableCell,TableContainer,TableRow, Chip, Button, Divider,Grid } from '@mui/material'
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 import SearchIcon from '@mui/icons-material/Search';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
@@ -7,9 +9,11 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles'
 
+import React, { useState } from 'react'
 
+import EditDocument from '../EditDocument/page';
 
 const theme = createTheme({
   palette: {
@@ -20,26 +24,27 @@ const theme = createTheme({
     },
     warning: {
       light: '#ffcc80',
-      main: '#3f50b5'
+      main:  '#ffe0b2'
     },
 
     success:{
       light:'#ef9a9a',
       main:'#f44336'
-    }
+    },
+
   },
 });
 
-import React from 'react'
+
 
 let Data = [
     {certificate:'Quality Management Certificate (eg ISO 9001)', validityDate:'01 Mar 2024', ExpireDate:"01 Mar 2026" , Status:'Pending Approval'}, 
 
      
-{certificate: 'Environment Certification (e.g.ISO 14001 etc)', validityDate: '01 Mar 2024', ExpireDate: '01 Mar 2024', Status: 'Expiring soon'},
-        {certificate: 'Additional Certificate', Status: 'Document Missing'}
 
-, 
+{certificate: 'Additional Certificate', Status: 'Document Missing',validityDate:'01 Mar 2024', ExpireDate:'01 Mar 2024',}
+
+, {certificate: 'Environment Certification (e.g.ISO 14001 etc)', validityDate: '01 Mar 2024', ExpireDate: '01 Mar 2024', Status: 'Expiring soon'},
     {certificate:'Corporate Social Responsibility Certification (e.g.ISO 26000)', validityDate:'01 Mar 2024', ExpireDate:'01 Mar 2024', Status:'Expired'}, 
     {certificate:'Environment Certification (e.g.ISO 14001 etc)', validityDate:'01 Mar 2024', ExpireDate:'01 Mar 2024', Status:'Expiring soon'}, 
     {certificate:'Quality Management Certification (eg ISO 9001)', validityDate:'01 Mar 2024', ExpireDate:'01 Mar 2024', Status:'Pending Approval'}
@@ -48,9 +53,38 @@ let Data = [
 
 
 function HseqBox() {
+
+  const [documentAction,setDocumentAction]=useState(false)
+  const [actionType, setActionType] = useState('');
+
+   
+  const handleClose = () => {
+    setDocumentAction(false); 
+  };
  
   return (
     <Box>
+      <Grid item xs={12} md={12} >
+      {documentAction && (
+        <Box
+          sx={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 9999
+          }}
+        >
+          <Grid item  xs={6} md={12} >
+
+          <EditDocument actionType={actionType} />
+          </Grid>
+         
+        </Box>
+      )}
+        
+      </Grid>
+    
 
 <Stack  alignItems='self-start' justifyContent='space-between' bgcolor='#f0f0f0' sx={{paddingLeft:'30px', padding:'10px'}}>
 
@@ -118,9 +152,28 @@ function HseqBox() {
                   )}
                   {data.Status === 'Expiring soon' &&  (
                     <Chip sx={{ backgroundColor: theme.palette.success.light}} icon={<AccessTimeIcon />} label={data.Status} />
-                  )}</TableCell>
+                  )}
+                  {
+                    data.Status==='Document Missing'&&(
+                      <Chip sx={{backgroundColor:theme.palette.warning.main} } icon={<FiberManualRecordIcon />}  label={data.Status}/>
+                    )
+                  }</TableCell>
         <TableCell> 
 <Stack alignItems='flex-end'>
+
+{
+        data.Status==="Document Missing"&& (
+                     
+<Stack alignItems='flex-end' spacing={4}>
+    <Button variant='outlined' color='success' onClick={() => {
+        setActionType('ADD');
+        setDocumentAction(true);
+    }} >ADD</Button>
+    <IconButton><MoreVertIcon /></IconButton>
+
+</Stack>
+        )
+      }     
 {
                 data.Status==='Pending Approval' && (
 <Stack direction="row" spacing={2} alignItems="center">
@@ -132,22 +185,17 @@ function HseqBox() {
  {
     (data.Status==='Expiring soon' || data.Status==='Expired') && (
         <Stack   direction='row' spacing={2} alignItems='center' >
-<Button variant='outlined' color='success'>RENEW</Button>
+<Button variant='outlined'  color='success'   onClick={() => {
+        setActionType('RENEW');
+        setDocumentAction(true);
+    }}>RENEW</Button>
+
 <MoreVertIcon/>
 
         </Stack>
     )
  }
-      {
-        data.Status==="Document missing"&& (
-                     
-<Stack alignItems='flex-end' spacing={4}>
-    <Button variant='outlined' color='success' >ADD</Button>
-    <IconButton><MoreVertIcon /></IconButton>
-
-</Stack>
-        )
-      }      
+    
 </Stack>      
 </TableCell>
     </TableRow>

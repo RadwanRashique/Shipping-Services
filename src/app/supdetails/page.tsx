@@ -3,7 +3,7 @@ import React  from "react";
 import {Box, Typography, Stack,Alert, Paper ,Tab} from '@mui/material'
 import {TabContext,TabList,TabPanel} from '@mui/lab'
 import {styled} from '@mui/material/styles'
-import HseqBox from "../components/HseqBox/pages";
+import HseqBox from "../components/HseqBox/page";
 import SaveAlert from '../components/saveAlert/page'
 
 const DemoPaper = styled(Paper)(({ theme }) => ({
